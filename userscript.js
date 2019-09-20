@@ -11,7 +11,7 @@
 (function() {
     'use strict';
 
-    var prefixToHide = 'vendor/';  // configurable value. If the path of a file starts with this prefix, it will be hidden.
+    var prefixToHide = 'vendor/'; // configurable value. If the path of a file starts with this prefix, it will be hidden.
     var frequencyOfDeleteMillisec = 1000; // configurable value. It tries to hide files after each such a long interval.
 
     function hideByPathPrefix(pref) {
