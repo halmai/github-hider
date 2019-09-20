@@ -3,7 +3,7 @@
 // @namespace    http://tampermonkey.net/
 // @version      0.1
 // @description  try to take over the world!
-// @author       You
+// @author       Csongor Halmai
 // @match        https://github.com/*/pull/4/files
 // @grant        none
 // ==/UserScript==
