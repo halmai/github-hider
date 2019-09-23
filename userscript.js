@@ -4,7 +4,7 @@
 // @version      0.1
 // @description  try to take over the world!
 // @author       Csongor Halmai
-// @match        https://github.com/*/pull/4/files
+// @match        https://github.com/*/pull/*
 // @grant        none
 // ==/UserScript==
 
