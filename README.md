@@ -29,6 +29,5 @@ The code runs for less than 5 milliseconds on a decent developer laptop so it sh
 
 ## TODO
 
-1. Add toggle button to hide/unhide files
 1. Add capability to hide files under more different directory prefixes, for example, `vendor/` and `3rdparty/`. 
 1. Investigate whether it is possible to stop the repeated hiding operation after a certain point.
