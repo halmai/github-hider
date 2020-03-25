@@ -59,7 +59,7 @@
         }
 
         var divs = files.querySelectorAll('div[id^="diff-"]');
-        var re = new RegExp('^diff\-[0-9]+$')
+        var re = new RegExp('^diff\-[0-9a-z]+$')
         var isFirst = true;
 
         for (var i = 0; i < divs.length; i++) {
