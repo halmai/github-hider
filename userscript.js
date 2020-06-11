@@ -4,8 +4,8 @@
 // @version      0.1
 // @description  try to take over the world!
 // @author       Csongor Halmai
-// @match        https://github.com/*/pull/*
 // @match        https://github.com/*/commit/*
+// @match        https://github.com/*/pull/*
 // @grant        none
 // ==/UserScript==
 
@@ -52,6 +52,19 @@
         }
     }
 
+    // tells whether the DIV element contains an A element that has a title we want hide
+    function hasHideableTitle(divEl, pref) {
+        var aTags = divEl.getElementsByTagName('a');
+
+        for (var i = 0; i < aTags.length; i++) {
+            var title = aTags[i].attributes.title
+            if (title && title.value && (title.value.substr(0, pref.length) == pref)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
 
     function markHidablesByPathPrefix(pref) {
         var files = document.getElementById('files');
@@ -66,9 +79,7 @@
         for (var i = 0; i < divs.length; i++) {
             var id = divs[i].attributes.id;
             if (id && re.test(id.value)) {
-                var tagA = document.getElementById(id.value).getElementsByTagName('a')[0];
-                var title = tagA.attributes.title
-                if (title && title.value && (title.value.substr(0, pref.length) == pref)) {
+                if (hasHideableTitle(document.getElementById(id.value), pref)) {
                     if (isFirst) {
                         addHiderButton(divs[i]);
                     }
