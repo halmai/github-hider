@@ -1,5 +1,5 @@
 # github-hider
-This is a TamperMonkey script that hides all files of the Pull Requests whose relative path start with a given prefix.
+This is a TamperMonkey script that hides all files of the Pull Requests whose relative path start with a given prefix. For example, you can hide all the files of a PR which are under the `vendor/` directory.
 
 ## Install
 
