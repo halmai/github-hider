@@ -3,12 +3,13 @@ This is a TamperMonkey script that hides all files of the Pull Requests whose re
 
 ## Install
 
-1. Install TamperMonkey for Firefox or Chrome: https://www.tampermonkey.net/
-1. Click the icon of the add-on on the toolbar
+1. Install TamperMonkey for Firefox or Chrome: https://www.tampermonkey.net/. (TamperMonkey is a browser addon which makes it possible to excute your own JavaScript code when a web page is downloaded from a remote server.) 
+1. Click the icon of the add-on (![TamperMonkey Logo](tampermonkey_logo.png "TamperMonkey Logo")) on the toolbar
 1. Click "Create a New Script"
 1. Copy-Paste the content of `userscript.js` in place of the original boilerplate code
-1. Understand the code in order to ensure it doesn't do anything nasty
-1. Modify the constants `prefixToHide` and `frequencyOfDeleteMillisec` according to your needs
+1. Skim the code in order to ensure it doesn't do anything nasty ;)
+1. Modify the `@match` lines at the top of the file accordingly if you use not just github.com but a domain name like `github.<yourcompany>.com` too. (The `@match` lines limit in case of wich URLs the script needs to run.) 
+1. Modify the constants `prefixToHide` and `frequencyOfDeleteMillisec` according to your needs. (In most cases you don't need to change them.)
 1. Save the script by File -> Save
 1. Close this tab
 1. Open a new tab where the files of a Pull Request can be browsed.
@@ -23,7 +24,7 @@ In such cases, it is nice to hide all the files under the `vendor/` directory.
 
 ## How does it work?
 
-Because github fetches the files of a Pull Request in smaller chunks, a TamperMonkey script cannot be run "after" them. It is better to hide the files as early as possible. If newer files are displayed, the TamperMonkey script hides those ones as well. In order to do this, it runs in every second. 
+Because github fetches the files of a Pull Request or a Commit in smaller chunks, a TamperMonkey script cannot be run "after" them. It is better to hide the files as early as possible. If newer files are displayed, the TamperMonkey script hides those ones as well. In order to do this, it runs in every second. 
 
 The code runs for less than 5 milliseconds on a decent developer laptop so it shouldn't be an issue if it runs in every second. 
 
