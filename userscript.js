@@ -14,9 +14,14 @@
 (function() {
     'use strict';
 
-    var prefixToHide = 'vendor/'; // configurable value. If the path of a file starts with this prefix, it will be hidden.
+    var patternsToHide = [ // configurable value. If the path of a file matches one of these regular expressions, it will be hidden.
+        'go.mod$',
+        'go.sum$',
+        '^vendor/',
+        '.pb.go$',
+    ];
     var frequencyOfDeleteMillisec = 1000; // configurable value. It tries to hide newly fetched files after each period of this duration.
-    
+
     var btnId = 'btn-github-hider-toggler'; // the ID of the toggle button
     var className = 'github-hider-file'; // class name for collecting all the DIVs that we want to hide/unhide
     var isVisible = false; // are all the relevant files Visible or Hidden?
@@ -56,20 +61,25 @@
     }
 
     // tells whether the DIV element contains an A element that has a title we want hide
-    function hasHideableTitle(divEl, pref) {
+    function hasHideableTitle(divEl, patterns) {
         var aTags = divEl.getElementsByTagName('a');
 
         for (var i = 0; i < aTags.length; i++) {
             var title = aTags[i].attributes.title
-            if (title && title.value && (title.value.substr(0, pref.length) == pref)) {
-                return true;
+            if (title && title.value) {
+                for (var j = 0; j < patterns.length; j++) {
+                    var re = new RegExp(patterns[j])
+                    if (title.value.match(re)) {
+                        return true;
+                    }
+                }
             }
         }
 
         return false;
     }
 
-    function markHidablesByPathPrefix(pref) {
+    function markHidablesByPathPrefix(patterns) {
         var files = document.getElementById('files');
         if (!files) {
             return; // it can happen that the files are not populated yet.
@@ -82,7 +92,7 @@
         for (var i = 0; i < divs.length; i++) {
             var id = divs[i].attributes.id;
             if (id && re.test(id.value)) {
-                if (hasHideableTitle(document.getElementById(id.value), pref)) {
+                if (hasHideableTitle(document.getElementById(id.value), patterns)) {
                     if (isFirst) {
                         addHiderButton(divs[i]);
                     }
@@ -101,13 +111,13 @@
     function schedule() {
         setTimeout(function() {
             // console.log('hiding', (new Date).toISOString(), '...');
-            markHidablesByPathPrefix(prefixToHide);
+            markHidablesByPathPrefix(patternsToHide);
             // console.log('hidden', (new Date).toISOString(), '.');
             schedule();
         }, frequencyOfDeleteMillisec);
     }
 
-    markHidablesByPathPrefix(prefixToHide);
+    markHidablesByPathPrefix(patternsToHide);
     setFileVisibility(false);
     updateButtonLabel();
     schedule();
