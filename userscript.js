@@ -15,10 +15,10 @@
     'use strict';
 
     var patternsToHide = [ // configurable value. If the path of a file matches one of these regular expressions, it will be hidden.
-        'go.mod$',
-        'go.sum$',
+        'go\\.mod$',
+        'go\\.sum$',
         '^vendor/',
-        '.pb.go$',
+        '\\.pb\\.go$',
     ];
     var frequencyOfDeleteMillisec = 1000; // configurable value. It tries to hide newly fetched files after each period of this duration.
 
@@ -69,7 +69,7 @@
             if (title && title.value) {
                 for (var j = 0; j < patterns.length; j++) {
                     var re = new RegExp(patterns[j])
-                    if (title.value.match(re)) {
+                    if (re.test(title.value)) {
                         return true;
                     }
                 }
